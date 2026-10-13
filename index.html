@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suratku</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Dancing+Script:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tinos:wght@400;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- index.html : kerangka halaman (form 4 langkah dan kertas pratinjau). -->
+<div class="app" id="app" data-view="form">
+  <header class="top">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M5 3h10l5 5v13H5z" fill="var(--accent)"/><path d="M15 3v5h5" fill="none" stroke="var(--accent-fg)" stroke-width="1.5"/><path d="M8.5 12h8M8.5 15.5h8M8.5 19h5" fill="none" stroke="var(--accent-fg)" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span>Suratku</span>
+    </div>
+    <p class="tag">Pembuat surat berbahasa Indonesia dengan bantuan AI</p>
+    <div class="themebar" aria-label="Tampilan warna">
+      <div class="swatches" id="swatches" role="group" aria-label="Warna aksen">
+        <button type="button" class="sw" data-accent="teal" aria-label="Warna teal" aria-pressed="true"></button>
+        <button type="button" class="sw" data-accent="blue" aria-label="Warna biru" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="violet" aria-label="Warna ungu" aria-pressed="false"></button>
+        <button type="button" class="sw" data-accent="rose" aria-label="Warna mawar" aria-pressed="false"></button>
+      </div>
+      <button type="button" class="btn small" id="modeBtn">Tema: Otomatis</button>
+    </div>
+  </header>
+
+  <div class="viewtabs" role="tablist" aria-label="Tampilan">
+    <button type="button" role="tab" id="vt-form" data-view="form" aria-selected="true">Isi surat</button>
+    <button type="button" role="tab" id="vt-preview" data-view="preview" aria-selected="false">Pratinjau</button>
+  </div>
+
+  <main class="cols">
+    <section class="form" aria-label="Isian surat">
+      <div class="banner" id="exBanner">
+        <span>Ini data contoh agar hasilnya langsung terlihat. Ganti dengan data Anda.</span>
+        <button type="button" id="clearAll">Kosongkan</button>
+      </div>
+
+      <nav class="steps" id="steps" role="tablist" aria-label="Langkah">
+        <button type="button" role="tab" data-step="1"><span class="n">1</span>Jenis</button>
+        <button type="button" role="tab" data-step="2"><span class="n">2</span>Pengirim</button>
+        <button type="button" role="tab" data-step="3"><span class="n">3</span>Penerima</button>
+        <button type="button" role="tab" data-step="4"><span class="n">4</span>Isi</button>
+        <button type="button" role="tab" data-step="5"><span class="n">5</span>TTD</button>
+      </nav>
+
+      <!-- Step 1 -->
+      <div class="panel" data-step="1">
+        <h2>Pilih jenis surat</h2>
+        <p class="lead">Susunan surat mengikuti kaidah surat resmi berbahasa Indonesia.</p>
+        <div class="choices" id="typeChoices"></div>
+        <h3>Pilih tampilan</h3>
+        <div class="choices tpl" id="tplChoices">
+          <label class="choice"><input type="radio" name="template" value="classic"><span class="card">
+            <svg viewBox="0 0 48 64" width="40" height="54" aria-hidden="true"><rect x="1" y="1" width="46" height="62" rx="3" fill="var(--paper)" stroke="var(--line)"/><rect x="26" y="8" width="16" height="2" fill="var(--paper-muted)"/><rect x="8" y="16" width="18" height="2" fill="var(--paper-muted)"/><rect x="8" y="21" width="12" height="2" fill="var(--paper-muted)"/><rect x="8" y="30" width="32" height="2" fill="var(--paper-muted)"/><rect x="8" y="35" width="32" height="2" fill="var(--paper-muted)"/><rect x="8" y="40" width="24" height="2" fill="var(--paper-muted)"/><rect x="28" y="50" width="12" height="2" fill="var(--paper-ink)"/></svg>
+            <span><b>Klasik</b><br>Rata kiri, tanda tangan di kanan</span></span></label>
+          <label class="choice"><input type="radio" name="template" value="modern"><span class="card">
+            <svg viewBox="0 0 48 64" width="40" height="54" aria-hidden="true"><rect x="1" y="1" width="46" height="62" rx="3" fill="var(--paper)" stroke="var(--line)"/><rect x="8" y="7" width="20" height="4" fill="var(--paper-accent)"/><rect x="8" y="13" width="32" height="1.5" fill="var(--paper-accent)"/><rect x="26" y="19" width="14" height="2" fill="var(--paper-muted)"/><rect x="8" y="30" width="32" height="2" fill="var(--paper-muted)"/><rect x="8" y="35" width="32" height="2" fill="var(--paper-muted)"/><rect x="8" y="40" width="24" height="2" fill="var(--paper-muted)"/><rect x="28" y="50" width="12" height="2" fill="var(--paper-ink)"/></svg>
+            <span><b>Modern</b><br>Kepala surat dengan nama Anda</span></span></label>
+          <label class="choice"><input type="radio" name="template" value="kop"><span class="card">
+            <svg viewBox="0 0 48 64" width="40" height="54" aria-hidden="true"><rect x="1" y="1" width="46" height="62" rx="3" fill="var(--paper)" stroke="var(--line)"/><rect x="12" y="7" width="24" height="3" fill="var(--paper-ink)"/><rect x="14" y="12" width="20" height="1.5" fill="var(--paper-muted)"/><rect x="8" y="16" width="32" height="1" fill="var(--paper-ink)"/><rect x="8" y="18" width="32" height="0.6" fill="var(--paper-ink)"/><rect x="26" y="23" width="14" height="2" fill="var(--paper-muted)"/><rect x="8" y="33" width="32" height="2" fill="var(--paper-muted)"/><rect x="8" y="38" width="24" height="2" fill="var(--paper-muted)"/><rect x="28" y="50" width="12" height="2" fill="var(--paper-ink)"/></svg>
+            <span><b>Kop surat</b><br>Untuk instansi atau organisasi</span></span></label>
+        </div>
+        <div class="navrow"><span></span><button type="button" class="btn primary" data-go="2">Lanjut ke pengirim</button></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="panel" data-step="2" hidden>
+        <h2>Data pengirim</h2>
+        <div class="field" id="orgField" hidden>
+          <label for="f-orgName">Nama instansi atau organisasi</label>
+          <input id="f-orgName" type="text" autocomplete="organization" placeholder="SMA Negeri 1 Contoh">
+          <p class="hint">Tampil sebagai kop surat.</p>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-name">Nama lengkap</label><input id="f-name" type="text" autocomplete="name" placeholder="Nama sesuai KTP"></div>
+          <div class="field"><label for="f-role">Jabatan atau status <span class="opt">(opsional)</span></label><input id="f-role" type="text" placeholder="Staf, siswa, ketua panitia"></div>
+        </div>
+        <div class="field"><label for="f-address">Alamat</label><input id="f-address" type="text" autocomplete="street-address" placeholder="Jl. Melati No. 5, Kota"></div>
+        <div class="grid2">
+          <div class="field"><label for="f-phone">Nomor telepon</label><input id="f-phone" type="tel" autocomplete="tel" placeholder="0812-0000-0000"></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" autocomplete="email" placeholder="nama@email.com"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-city">Kota penulisan surat</label><input id="f-city" type="text" placeholder="Bandung"></div>
+          <div class="field"><label for="f-date">Tanggal surat</label><input id="f-date" type="date"></div>
+        </div>
+        <div class="navrow"><button type="button" class="btn" data-go="1">Kembali</button><button type="button" class="btn primary" data-go="3">Lanjut ke penerima</button></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="panel" data-step="3" hidden>
+        <h2>Tujuan surat</h2>
+        <div class="grid2">
+          <div class="field"><label for="f-recTitle">Ditujukan kepada</label><input id="f-recTitle" type="text" placeholder="Bapak/Ibu HRD Manager"></div>
+          <div class="field"><label for="f-recOrg">Instansi atau perusahaan</label><input id="f-recOrg" type="text" placeholder="PT Contoh Sejahtera"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-recPlace">Kota tujuan</label><input id="f-recPlace" type="text" placeholder="Tempat"><p class="hint">Tertulis "di ..." di bawah penerima.</p></div>
+          <div class="field"><label for="f-nomor">Nomor surat <span class="opt">(opsional)</span></label><input id="f-nomor" type="text" placeholder="012/ABC/X/2026"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="f-lampiran">Lampiran <span class="opt">(opsional)</span></label><input id="f-lampiran" type="text" placeholder="1 (satu) berkas"></div>
+          <div class="field"><label for="f-perihal">Perihal</label><input id="f-perihal" type="text" placeholder="Lamaran Pekerjaan"></div>
+        </div>
+        <div class="navrow"><button type="button" class="btn" data-go="2">Kembali</button><button type="button" class="btn primary" data-go="4">Lanjut ke isi surat</button></div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="panel" data-step="4" hidden>
+        <h2>Isi surat</h2>
+        <div class="field"><label for="f-fieldA" id="lbl-fieldA">Posisi yang dilamar</label><input id="f-fieldA" type="text"></div>
+        <div class="field"><label for="f-detail">Keterangan untuk AI <span class="opt">(opsional)</span></label><textarea id="f-detail"></textarea></div>
+        <div class="grid2" id="aiOpts" hidden>
+          <div class="field"><label for="f-tone">Nada bahasa</label>
+            <select id="f-tone"><option value="formal">Formal</option><option value="semi">Semi-formal</option><option value="ramah">Ramah</option></select></div>
+          <div class="field"><label for="f-length">Panjang</label>
+            <select id="f-length"><option value="singkat">Singkat</option><option value="sedang">Sedang</option><option value="lengkap">Lengkap</option></select></div>
+        </div>
+        <div class="aibar">
+          <button type="button" class="btn primary" id="aiWrite" hidden>Tulis dengan AI</button>
+          <button type="button" class="btn" id="aiPolish" hidden>Rapikan tulisan saya</button>
+          <button type="button" class="btn" id="aiStop" hidden>Berhenti</button>
+          <button type="button" class="btn" id="autoBody">Isi otomatis</button>
+        </div>
+        <p class="status" id="aiStatus" role="status" aria-live="polite"></p>
+        <div class="field"><label for="f-body">Teks surat</label><textarea id="f-body"></textarea>
+          <p class="hint">Satu baris kosong memisahkan paragraf. Periksa kembali nama, tanggal, dan angka sebelum surat dikirim.</p></div>
+        <p class="note" id="aiNote" hidden>Fitur AI belum aktif. Isi ANTHROPIC_API_KEY di file .env lalu jalankan ulang server. Anda tetap bisa menulis sendiri atau memakai isi otomatis.</p>
+        <div class="navrow"><button type="button" class="btn" data-go="3">Kembali</button><button type="button" class="btn primary" data-go="5">Lanjut ke tanda tangan</button></div>
+      </div>
+
+      <!-- Step 5 : tanda tangan (kode ada di ttd.js) -->
+      <div class="panel" data-step="5" hidden>
+        <h2>Tanda tangan</h2>
+        <p class="lead">Tanda tangan muncul di bawah "Hormat saya," pada pratinjau, PDF, dan Word.</p>
+        <div class="segs" id="sigTabs" role="tablist" aria-label="Cara membuat tanda tangan">
+          <button type="button" role="tab" data-sig="draw" aria-selected="true">Gambar</button>
+          <button type="button" role="tab" data-sig="type" aria-selected="false">Ketik</button>
+          <button type="button" role="tab" data-sig="upload" aria-selected="false">Unggah</button>
+        </div>
+
+        <div class="sigpane" data-pane="draw">
+          <div class="sigpad" id="sigPad">
+            <span class="siglbl" id="sigLbl">Tanda tangan di sini dengan jari atau mouse</span>
+            <canvas id="sigCanvas" aria-label="Kotak tanda tangan"></canvas>
+          </div>
+          <div class="sigrow"><button type="button" class="btn small" id="sigClear">Ulangi coretan</button></div>
+        </div>
+
+        <div class="sigpane" data-pane="type" hidden>
+          <div class="grid2">
+            <div class="field"><label for="sigText">Nama untuk tanda tangan</label><input id="sigText" type="text" placeholder="Nama Anda"></div>
+            <div class="field"><label for="sigFont">Gaya tulisan</label>
+              <select id="sigFont"><option value="Dancing Script">Miring mengalir</option><option value="Caveat">Tulisan tangan</option></select></div>
+          </div>
+        </div>
+
+        <div class="sigpane" data-pane="upload" hidden>
+          <div class="field"><label for="sigFile">Foto atau gambar tanda tangan</label><input id="sigFile" type="file" accept="image/*">
+            <p class="hint">Tanda tangan di kertas putih, difoto dengan cahaya cukup. Latar putih dihapus otomatis.</p></div>
+        </div>
+
+        <div class="sigcur" id="sigCur" hidden>
+          <div class="sigthumb"><img id="sigImg" alt="Tanda tangan Anda"></div>
+          <div class="sigcurtxt">
+            <label class="check"><input type="checkbox" id="sigOn" checked> Tampilkan di surat</label>
+            <button type="button" class="btn small" id="sigRemove">Hapus tanda tangan</button>
+          </div>
+        </div>
+        <p class="note">Ini tanda tangan berbentuk gambar. Bukan tanda tangan elektronik tersertifikasi, jadi untuk dokumen yang mensyaratkan sertifikat gunakan layanan penyedia resmi.</p>
+
+        <div class="navrow"><button type="button" class="btn" data-go="4">Kembali</button><button type="button" class="btn primary only-mobile" id="toPreview">Lihat pratinjau dan unduh</button></div>
+      </div>
+    </section>
+
+    <section class="preview" aria-label="Pratinjau surat">
+      <div class="ptool">
+        <div class="ttl"><b>Pratinjau</b><span class="pg" id="pageInfo">1 halaman A4</span></div>
+        <div class="actions">
+          <button type="button" class="btn small" id="bCopy">Salin</button>
+          <button type="button" class="btn small" id="bPrint">Cetak</button>
+          <button type="button" class="btn small" id="bTxt" hidden>TXT</button>
+          <button type="button" class="btn small" id="bDocx" hidden>Word</button>
+          <button type="button" class="btn small primary" id="bPdf" hidden>Unduh PDF</button>
+        </div>
+      </div>
+      <div class="stage"><div class="sheet"><div class="paper" id="paper"></div></div></div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- Library pihak ketiga untuk membuat PDF dan Word -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<!-- Kode Suratku. Urutan ini jangan ditukar. -->
+<script src="surat.js"></script>
+<script src="unduh.js"></script>
+<script src="main.js"></script>
+<script src="ttd.js"></script>
+<script src="tema.js"></script>
+</body>
+</html>
